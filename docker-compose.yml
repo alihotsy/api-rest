@@ -1,9 +1,38 @@
 version: "3.8"
 
 services:
-    core:
-        container_name: api_rest
+    api_rest01:
+        container_name: api_rest01
+        image: alihotsy/api-rest-core:latest
+        build:
+          context: .
         restart: always
-        build: .
         ports:
-            - "9090:8084"
+            - "8084"
+        networks:
+            - api_rests
+    api_rest02:
+        container_name: api_rest02
+        image: alihotsy/api-rest-core:latest
+        build:
+          context: .
+        restart: always
+        ports:
+            - "8084"
+        networks:
+            - api_rests
+    api_rest-load-balancer:
+        container_name: api_rest-load-balancer
+        image: api_rest-load-balancer:v1
+        build:
+          context : ./load-balancer
+        ports:
+         - "5000:7000"
+        networks:
+            - api_rests
+        depends_on:
+          - api_rest01
+          - api_rest02
+        restart: always
+networks:
+ api_rests:
