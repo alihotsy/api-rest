@@ -4,8 +4,6 @@ services:
     api_rest01:
         container_name: api_rest01
         image: alihotsy/api-rest-core:latest
-        build:
-          context: .
         restart: always
         ports:
             - "8084"
@@ -14,8 +12,6 @@ services:
     api_rest02:
         container_name: api_rest02
         image: alihotsy/api-rest-core:latest
-        build:
-          context: .
         restart: always
         ports:
             - "8084"
